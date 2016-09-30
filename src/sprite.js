@@ -1,3 +1,4 @@
+import {createBuffer, createTexture, createShaderProgram} from './lib';
 
 // float + (vec2 * 4) + (char * 4)
 const VERTEX_SIZE = 4 + ((4 * 2) * 4) + 4
@@ -41,57 +42,7 @@ void main() {
 }
 `;
 
-function compileShader(gl, source, type) {
-    const shader = gl.createShader(type);
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
-
-    if (gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        return shader;
-    }
-
-    console.log(gl.getShaderInfoLog(shader));
-    gl.deleteShader(shader);
-}
-
-function createShaderProgram(gl, vSource, fSource) {
-    const prog = gl.createProgram(),
-        vshader = compileShader(gl, vSource, gl.VERTEX_SHADER),
-        fshader = compileShader(gl, fSource, gl.FRAGMENT_SHADER);
-    gl.attachShader(prog, vshader);
-    gl.attachShader(prog, fshader);
-    gl.linkProgram(prog);
-    if (gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-        return prog;
-    }
-
-    console.log(gl.getProgramInfoLog(prog));
-}
-
-function createBuffer(gl, type, size, usage) {
-    const buf = gl.createBuffer();
-    gl.bindBuffer(type, buf);
-    gl.bufferData(type, size, usage);
-    return buf;
-}
-
-export function createTexture(gl, image, width, height) {
-    let texture = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, texture);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-    gl.bindTexture(gl.TEXTURE_2D, null);
-
-    texture.width = width;
-    texture.height = height;
-
-    return texture;
-}
-
-export function TinySprite(canvas) {
+export default function TinySprite(canvas) {
 
     const gl = canvas.getContext('webgl');
     const width = canvas.width;
@@ -198,12 +149,12 @@ export function TinySprite(canvas) {
                 argb = renderer.col;
 
 
-            if (texture != currentTexture || count + 1 >= MAX_BATCH) {
+            if (texture !== currentTexture || count + 1 >= MAX_BATCH) {
 
                 gl.bufferSubData(gl.ARRAY_BUFFER, 0, vertexData);
                 gl.drawElements(4, count * VERTICES_PER_QUAD, gl.UNSIGNED_SHORT, 0);
                 count = 0;
-                if (texture != currentTexture) {
+                if (texture !== currentTexture) {
                     currentTexture = texture;
                     gl.bindTexture(gl.TEXTURE_2D, currentTexture);
                 }

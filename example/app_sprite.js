@@ -1,4 +1,7 @@
-import {TinySprite,createTexture} from './tiny';
+import TinySprite from '../src/sprite';
+import {createTexture} from '../src/lib';
+
+
 
 let canvas = TinySprite(document.getElementById('canvas'));
 
