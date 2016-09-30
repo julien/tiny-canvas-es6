@@ -1,0 +1,24 @@
+{
+  "name": "tiny-canvas-es6",
+  "version": "1.0.0",
+  "description": "A port of bitnenfer/tiny-canvas in ES6",
+  "main": "./src/index.js",
+
+  "scripts": {
+    "prepublish": "npm run start",
+    "start": "node_modules/.bin/rollup -f iife -i src/index.js -o bundle.js -m bundle.js.map -w"
+  },
+
+
+  "author": {
+    "name": "julien",
+    "github-handle": "julien"
+  },
+
+  "license": "ISC",
+
+  "devDependencies": {
+    "rollup": "^0.35.11",
+    "rollup-watch": "^2.5.0"
+  }
+}
