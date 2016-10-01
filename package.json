@@ -4,8 +4,8 @@
   "description": "A port of bitnenfer/tiny-canvas in ES6",
 
   "scripts": {
-    "build:canvas": "node_modules/.bin/rollup -f iife -i example/app_canvas.js -o example/bundle_canvas.js -m example/bundle_canvas.js.map -w",
-    "build:sprite": "node_modules/.bin/rollup -f iife -i example/app_sprite.js -o example/bundle_sprite.js -m example/bundle_sprite.js.map -w"
+    "build:canvas": "node_modules/.bin/rollup -i example/app_canvas.js -o example/bundle_canvas.js -m example/bundle_canvas.js.map -w",
+    "build:sprite": "node_modules/.bin/rollup -i example/app_sprite.js -o example/bundle_sprite.js -m example/bundle_sprite.js.map -w"
   },
 
   "author": {
@@ -16,7 +16,7 @@
   "license": "ISC",
 
   "devDependencies": {
-    "rollup": "^0.35.11",
-    "rollup-watch": "^2.5.0"
+    "rollup": "0.35.11",
+    "rollup-watch": "2.5.0"
   }
 }

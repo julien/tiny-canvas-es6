@@ -1,10 +1,7 @@
 import TinySprite from '../src/sprite';
 import {createTexture} from '../src/lib';
 
-
-
 let canvas = TinySprite(document.getElementById('canvas'));
-
 let gl = canvas.g;
 
 const gravity = 0.5;
@@ -62,7 +59,6 @@ function create() {
 
 function update() {
     if (add && count < 200000) {
-
         let frame = frames[currentFrame];
         for (let i = 0; i < amount; i++) {
             let kitten = new Sprite(0, 0, kittenTexture, frame[0], frame[1], frame[2], frame[3]);
@@ -86,22 +82,23 @@ function update() {
             kitten.speedX *= -1;
             kitten.positionX = maxX;
         } else if (kitten.positionX < minX) {
-            kitten.positionX *= -1;
+            kitten.speedX *= -1;
             kitten.positionX = minX;
         }
 
         if (kitten.positionY > maxY) {
-            kitten.speedY *= -0.085;
+            kitten.speedY *= -0.85;
             kitten.positionY = maxY;
 
             kitten.spin = (Math.random() * 0.5) * 0.2;
+
             if (Math.random() > 0.5) {
                 kitten.speedY -= Math.random() * 6;
             }
 
         } else if (kitten.positionY < minY) {
             kitten.speedY = 0;
-            kitten.positionX = minX;
+            kitten.positionY = minX;
         }
     }
 }
@@ -158,6 +155,7 @@ function mouseDown() {
 }
 
 function mouseUp() {
+
     add = false;
 }
 

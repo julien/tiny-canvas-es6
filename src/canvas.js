@@ -100,7 +100,7 @@ export default function TinyCanvas(canvas) {
     gl.vertexAttribPointer(locB, 2, gl.FLOAT, 0, VERTEX_SIZE, 8);
 
     gl.enableVertexAttribArray(locC);
-    gl.vertexAttribPointer(locC, 4, gl.FLOAT, 1, VERTEX_SIZE, 16);
+    gl.vertexAttribPointer(locC, 4, gl.UNSIGNED_BYTE, 1, VERTEX_SIZE, 16);
 
     gl.uniformMatrix4fv(gl.getUniformLocation(shader, 'm'), 0,
         new Float32Array([
@@ -115,10 +115,10 @@ export default function TinyCanvas(canvas) {
     let renderer = {
         g: gl,
         c: canvas,
-        col: 0xFFFFFF,
+        col: 0xFFFFFFFF,
 
         bkg(r, g, b) {
-            gl.clearColor(r, g, b, 1.0);
+            gl.clearColor(r, g, b, 1);
         },
 
         cls() {

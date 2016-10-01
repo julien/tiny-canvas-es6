@@ -2,7 +2,6 @@ import TinyCanvas from '../src/canvas';
 import {createTexture} from '../src/lib';
 
 let canvas = TinyCanvas(document.getElementById('canvas'));
-
 let gl = canvas.g;
 
 const gravity = 0.5;
@@ -84,12 +83,12 @@ function update() {
             kitten.speedX *= -1;
             kitten.positionX = maxX;
         } else if (kitten.positionX < minX) {
-            kitten.positionX *= -1;
+            kitten.speedX *= -1;
             kitten.positionX = minX;
         }
 
         if (kitten.positionY > maxY) {
-            kitten.speedY *= -0.085;
+            kitten.speedY *= -0.89;
             kitten.positionY = maxY;
 
             kitten.spin = (Math.random() * 0.5) * 0.2;
@@ -99,7 +98,7 @@ function update() {
 
         } else if (kitten.positionY < minY) {
             kitten.speedY = 0;
-            kitten.positionX = minX;
+            kitten.positionY = minX;
         }
     }
 }
@@ -128,7 +127,6 @@ function draw() {
         );
         canvas.pop();
     }
-
     canvas.flush();
 }
 
